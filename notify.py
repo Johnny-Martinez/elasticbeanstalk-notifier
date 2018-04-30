@@ -1,12 +1,13 @@
 import json
 import logging
 import time
+import os
 from enum import Enum
 from datetime import datetime
 import requests
 
 
-webhook_url = "<censored>"
+webhook_url = os.getenv("SLACK_WEBHOOK_URL")
 logger = logging.getLogger()
 logger.setLevel(logging.INFO)
 
