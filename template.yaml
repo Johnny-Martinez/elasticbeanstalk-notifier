@@ -1,0 +1,20 @@
+AWSTemplateFormatVersion : '2010-09-09'
+Transform: AWS::Serverless-2016-10-31
+Description: Notify AWS Elastic Beanstalk event to chat tools
+
+Resources:
+  NotifyFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      Handler: index.handler
+      Runtime: python3.6
+      CodeUri: src/
+    Events:
+      Type: SNS
+      Properties:
+        Topic: !Ref NotifyTopicArn
+
+Parameter:
+  NotifyTopicArn:
+    Type: String
+
