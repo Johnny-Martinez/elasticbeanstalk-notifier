@@ -8,8 +8,11 @@ import requests
 
 
 webhook_url = os.getenv("SLACK_WEBHOOK_URL")
+
 logger = logging.getLogger()
-logger.setLevel(logging.INFO)
+log_level = os.getenv("LOG_LEVEL") or "INFO"
+numeric_log_level = getattr(logging, log_level.upper(), 10)
+logger.setLevel(numeric_log_level)
 
 
 class NotificationType(Enum):
