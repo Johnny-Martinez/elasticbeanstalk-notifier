@@ -8,8 +8,11 @@ import requests
 
 
 webhook_url = os.getenv("SLACK_WEBHOOK_URL")
+
 logger = logging.getLogger()
-logger.setLevel(logging.INFO)
+log_level = os.getenv("LOG_LEVEL") or "INFO"
+numeric_log_level = getattr(logging, log_level.upper(), 10)
+logger.setLevel(numeric_log_level)
 
 
 class NotificationType(Enum):
@@ -37,7 +40,7 @@ def post_to_slack(attachments):
     }
     res = requests.post(webhook_url, json=param)
     if res.status_code != 200:
-        logger.debug("post_to_slack is failure. STATUS: {}, param: {}".format(res.status_code, param))
+        logger.error("post_to_slack is failure. STATUS: {}, param: {}".format(res.status_code, param))
         return
     logger.info("post_to_slack is successful")
 
