@@ -40,7 +40,7 @@ def post_to_slack(attachments):
     }
     res = requests.post(webhook_url, json=param)
     if res.status_code != 200:
-        logger.debug("post_to_slack is failure. STATUS: {}, param: {}".format(res.status_code, param))
+        logger.error("post_to_slack is failure. STATUS: {}, param: {}".format(res.status_code, param))
         return
     logger.info("post_to_slack is successful")
 
